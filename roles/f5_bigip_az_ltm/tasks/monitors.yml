@@ -1,0 +1,21 @@
+---
+
+- name: F5 BIGIP Azure LTM - HTTPS Monitors
+  bigip_monitor_https:
+    state: "{{ item.state }}"
+    description: "{{ item.description | default(omit) }}"
+    interval: "{{ item.interval | default(5) }}"
+    ip: "{{ item.ip | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+    name: "{{ item.name }}"
+    parent: "{{ item.parent | default('/Common/https') }}"
+    send: "{{ item.send }}"
+    receive: "{{ item.receive }}"
+    time_until_up: "{{ item.time_until_up | default(0) }}"
+    timeout: "{{ item.timeout | default(16) }}"
+    up_interval: "{{ item.up_interval | default(0) }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_f5_monitors_https }}"
+  when: device_f5_monitors_https is defined
+

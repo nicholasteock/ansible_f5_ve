@@ -1,0 +1,13 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - Data Groups
+  bigip_data_group:
+    description: "{{ item.description | default(omit) }}"
+    internal: yes
+    name: "{{ item.name }}"
+    records: "{{ item.records }}"
+    state: "{{ item.state }}"
+    type: string
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_f5_data_groups }}"

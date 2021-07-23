@@ -1,0 +1,21 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - Pools
+  bigip_pool:
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description | default(omit) }}"
+    lb_method: "{{ item.lb_method }}"
+    monitors: "{{ item.monitors }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_f5_pools }}"
+
+- name: F5 BIGIP Azure LTM Base - Pool members
+  bigip_pool_member:
+    pool: "{{ item.name }}"
+    aggregate: "{{ item.members }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_f5_pools }}"
+

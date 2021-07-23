@@ -1,0 +1,8 @@
+---
+
+device_ssl_certs:
+  - name: "cli.nicholas.com"
+    state: present
+    cert_file: "cli.nicholas.com.crt"
+    key_file: "cli.nicholas.com.key"
+

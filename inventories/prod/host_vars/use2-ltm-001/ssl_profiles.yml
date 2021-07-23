@@ -1,0 +1,9 @@
+---
+
+device_ssl_profiles:
+  - name: cli.nicholas.com
+    state: present
+    cert_key_chain:
+      cert: cli.nicholas.com
+      key: cli.nicholas.com
+

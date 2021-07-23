@@ -1,0 +1,31 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - SSL certificates
+  bigip_ssl_certificate:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    content: "{{ lookup('file', '/home/nteo/ansible-lab/' + item.cert_file) }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_ssl_certs }}"
+
+- name: F5 BIGIP Azure LTM Base - SSL Keys
+  bigip_ssl_key:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    content: "{{ lookup('file', '/home/nteo/ansible-lab/' + item.key_file) }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_ssl_certs }}"
+
+- name: F5 BIGIP Azure LTM Base - SSL Profiles
+  bigip_profile_client_ssl:
+    name: "{{ item.name }}"
+    state: present
+    cert_key_chain:
+      - cert: "{{ item.cert_key_chain.cert }}"
+        key: "{{ item.cert_key_chain.key }}"
+        chain: "{{ item.cert_key_chain.chain | default(omit) }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_ssl_profiles }}"

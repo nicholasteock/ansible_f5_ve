@@ -1,0 +1,8 @@
+---
+
+- hosts:
+  - f5_global
+  gather_facts: no
+  #check_mode: yes
+  roles:
+    - f5_bigip_az_ltm

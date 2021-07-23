@@ -1,0 +1,24 @@
+---
+
+device_f5_monitors_https:
+  - name: https-healthcheck.epl-apache_1.1
+    state: present
+    interval: 5
+    parent: https
+    send: |+
+      GET /test/healthcheck.epl HTTP/1.1
+      Host: test.abc.com
+      Pragma: no-cache
+      Accept:
+
+    receive: "All good. Server is up."
+
+  - name: https_api_1.1
+    state: present
+    interval: 10
+    timeout: 31
+    send: |+
+      GET /test/healthcheck HTTP/1.1
+      Host: test.abc.com
+
+    receive: "HTTP/1.1 200"

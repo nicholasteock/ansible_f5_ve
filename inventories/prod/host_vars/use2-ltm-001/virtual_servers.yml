@@ -1,0 +1,26 @@
+---
+
+device_virtual_servers:
+  - name: "cli.nicholas.com"
+    state: enabled
+    description: "Azure East US 2 VIP"
+    type: "standard"
+    source_address: "0.0.0.0/0"
+    destination_address: "0.0.0.0/0"
+    port: 443
+    profiles:
+      - http
+      - oneconnect
+      - tcp-wan-optimized
+      - name: cli.nicholas.com
+        context: client-side
+      - name: serverssl
+        context: server-side
+    default_pool: "cli-web-ssl"
+    default_persistence_profile: "cookie"
+    fallback_persistence_profile: ""
+    irules: 
+      - "LogActivity"
+      - "cli-pool-redirect"
+    snat: "automap"
+

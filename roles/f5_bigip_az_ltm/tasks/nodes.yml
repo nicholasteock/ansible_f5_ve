@@ -1,0 +1,13 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - Nodes
+  bigip_node:
+    state: "{{ item.state }}"
+    address: "{{ item.address }}"
+    description: "{{ item.description | default(omit) }}"
+    monitors: "{{ item.monitor | default(omit) }}"
+    name: "{{ item.name }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_f5_nodes }}"
+

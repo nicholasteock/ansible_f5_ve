@@ -1,0 +1,21 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - Virtual Servers
+  bigip_virtual_server:
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    type: "{{ item.type }}"
+    source: "{{ item.source_address | default('0.0.0.0') }}"
+    destination: "{{ item.destination_address }}"
+    port: "{{ item.port }}"
+    profiles: "{{ item.profiles }}"
+    enabled_vlans: "{{ item.enabled_vlans | default(omit) }}"
+    pool: "{{ item.default_pool }}"
+    default_persistence_profile: "{{ item.default_persistence_profile }}"
+    fallback_persistence_profile: "{{ item.fallback_persistence_profile }}"
+    irules: "{{ item.irules }}"
+    snat: "{{ item.snat | default('automap') }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ device_virtual_servers }}"

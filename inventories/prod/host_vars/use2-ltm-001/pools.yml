@@ -1,0 +1,78 @@
+---
+
+device_f5_pools:
+  - name: cli-app-p6769-ssl
+    state: present
+    monitors: tcp
+    lb_method: round-robin
+    members:
+      - name: use2-web-001
+        port: 6769
+        address: 10.1.1.5
+        state: disabled
+      - name: use2-web-002
+        port: 6769
+        address: 10.1.1.6
+        state: disabled
+      - name: use2-web-003
+        port: 6769
+        address: 10.1.1.7
+        state: disabled
+
+  - name: cli-beta-app-p32003-ssl
+    state: present
+    monitors: none
+    lb_method: round-robin
+    members:
+      - name: use2-web-001
+        port: 32003
+        address: 10.1.1.5
+        state: disabled
+      - name: use2-web-002
+        port: 32003
+        address: 10.1.1.6
+        state: disabled
+      - name: use2-web-003
+        port: 32003
+        address: 10.1.1.7
+        state: disabled
+
+  - name: cli-web-ssl
+    state: present
+    monitors: none
+    lb_method: least-connections-member
+    members:
+      - name: use2-web-001
+        port: 443
+        address: 10.1.1.5
+        state: disabled
+      - name: use2-web-002
+        port: 443
+        address: 10.1.1.6
+        state: enabled
+      - name: use2-web-003
+        port: 443
+        address: 10.1.1.7
+        state: enabled
+
+  - name: cli-api-p1234-ssl
+    state: present
+    monitors:
+      - tcp_half_open
+      - https_api_1.1
+    lb_method: round-robin
+    members:
+      - name: use2-web-001
+        port: 1234
+        address: 10.1.1.5
+        state: enabled
+      - name: use2-web-002
+        port: 1234
+        address: 10.1.1.6
+        state: enabled
+      - name: use2-web-003
+        port: 1234
+        address: 10.1.1.7
+        state: enabled
+
+

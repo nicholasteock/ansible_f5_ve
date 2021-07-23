@@ -1,0 +1,9 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - NTP
+  bigip_device_ntp:
+    state: present
+    ntp_servers:
+      - time.windows.com
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost

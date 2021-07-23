@@ -1,0 +1,16 @@
+---
+
+device_f5_nodes:
+  - name: use2-web-001
+    address: 10.1.1.5
+    description: use2-web-001
+    state: enabled
+  - name: use2-web-002
+    address: 10.1.1.6
+    description: use2-web-002
+    state: enabled
+  - name: use2-web-003
+    address: 10.1.1.7
+    description: use2-web-003
+    state: enabled
+

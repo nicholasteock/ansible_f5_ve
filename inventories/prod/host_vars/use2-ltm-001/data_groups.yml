@@ -1,0 +1,17 @@
+---
+
+device_f5_data_groups:
+  - name: dg_pool_redirects_sw
+    description: Pool redirects data group
+    state: present
+    records:
+      - key: "/api/"
+        value: "cli-api-p1234-ssl,cli-api-p1234-ssl"
+      - key: "/web/"
+        value: "cli-web-ssl,none"
+  - name: dg_pool_redirects_eq
+    description: Pool redirects data group
+    state: present
+    records:
+      - key: "none"
+        value: "none,none"

@@ -1,0 +1,13 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - iRules
+  bigip_irule:
+    state: present
+    name: "{{ item }}"
+    src: "{{ role_path }}/files/{{ item }}.tcl"
+    module: ltm
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop:
+    - LogActivity
+    - cli-pool-redirect
