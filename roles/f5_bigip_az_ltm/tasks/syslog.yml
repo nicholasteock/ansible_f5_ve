@@ -23,23 +23,14 @@
     provider: "{{ f5_provider }}"
   delegate_to: localhost
 
-- name: F5 BIGIP Azure LTM Base - Syslog server (Region3)
+- name: F5 BIGIP Azure LTM Base - Syslog servers
   bigip_remote_syslog:
-    state: present
-    name: remotesyslog3
-    remote_host: 12.12.12.12
-    remote_port: "514"
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+    remote_host: "{{ item.remote_host }}"
+    remote_port: "{{ item.remote_port }}"
     local_ip: "{{ device_management_ip }}"
     provider: "{{ f5_provider }}"
   delegate_to: localhost
-
-- name: F5 BIGIP Azure LTM Base - Syslog server (Region4)
-  bigip_remote_syslog:
-    state: present
-    name: remotesyslog4
-    remote_host: 32.32.32.32
-    remote_port: "514"
-    local_ip: "{{ device_management_ip }}"
-    provider: "{{ f5_provider }}"
-  delegate_to: localhost
+  loop: "{{ group_f5_global_syslog }}"
 

@@ -1,0 +1,7 @@
+---
+
+- name: BIGIP F5 Azure LTM Base - Hostname
+  bigip_hostname:
+    hostname: "{{ ansible_host }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost

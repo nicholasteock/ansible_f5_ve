@@ -1,0 +1,9 @@
+---
+
+group_f5_global_ntp:
+  - name: time-a-g.nist.gov
+    server_ip: 129.6.15.28
+    state: present
+  - name: time-b-g.nist.gov
+    server_ip: 129.6.15.29
+    state: present

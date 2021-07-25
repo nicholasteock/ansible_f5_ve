@@ -1,0 +1,9 @@
+---
+
+- name: BIGIP F5 Azure LTM Base - SSL Cipher Rule and Group
+  bigip_command:
+    commands:
+      - create ltm cipher rule cipherrule_my_standard cipher 'ECDHE-RSA-AES256-GCM-SHA384'
+      - create ltm cipher group ciphergroup_my_standard allow add { cipherrule_my_standard }
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost

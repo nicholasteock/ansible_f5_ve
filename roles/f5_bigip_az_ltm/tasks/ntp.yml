@@ -3,7 +3,7 @@
 - name: F5 BIGIP Azure LTM Base - NTP
   bigip_device_ntp:
     state: present
-    ntp_servers:
-      - time.windows.com
+    ntp_servers: "{{ group_f5_global_ntp | map(attribute='server_ip') | list }}"
     provider: "{{ f5_provider }}"
   delegate_to: localhost
+

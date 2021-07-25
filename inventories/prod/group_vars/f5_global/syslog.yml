@@ -1,0 +1,13 @@
+---
+
+group_f5_global_syslog:
+  - name: remotesyslog3
+    remote_host: 12.12.12.12
+    remote_port: 514
+    network: 12.12.12.0/24
+    state: present
+  - name: remotesyslog4
+    remote_host: 32.32.32.32
+    remote_port: 514
+    network: 32.32.32.0/24
+    state: present

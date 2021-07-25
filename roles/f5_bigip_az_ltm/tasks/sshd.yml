@@ -1,0 +1,19 @@
+---
+
+- name: BIGIP F5 Azure LTM Base - SSHD
+  bigip_device_sshd:
+    allow:
+      - all
+    banner: enabled
+    banner_text: |-
+      ====================================================
+      Give a man a program, frustrate him for a day.
+      Teach a man to program, frustrate him for a lifetime
+      ====================================================
+    inactivity_timeout: 600
+    log_level: info
+    login: enabled
+    port: 22
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+

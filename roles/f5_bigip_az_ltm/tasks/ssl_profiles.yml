@@ -4,7 +4,7 @@
   bigip_ssl_certificate:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-    content: "{{ lookup('file', '/home/nteo/ansible-lab/' + item.cert_file) }}"
+    content: "{{ lookup('file', '/home/nteo/ansible_f5_ve/' + item.cert_file) }}"
     provider: "{{ f5_provider }}"
   delegate_to: localhost
   loop: "{{ device_ssl_certs }}"
@@ -13,7 +13,7 @@
   bigip_ssl_key:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-    content: "{{ lookup('file', '/home/nteo/ansible-lab/' + item.key_file) }}"
+    content: "{{ lookup('file', '/home/nteo/ansible_f5_ve/' + item.key_file) }}"
     provider: "{{ f5_provider }}"
   delegate_to: localhost
   loop: "{{ device_ssl_certs }}"

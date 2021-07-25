@@ -1,0 +1,41 @@
+---
+
+- name: BIGIP F5 Azure LTM Base - Enable rfc3927 for Azure Mgmt Route
+  bigip_sys_db:
+    state: present
+    key: "config.allow.rfc3927"
+    value: "enable"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+- name: BIGIP F5 Azure LTM Base - Management route (Azure Maintenance)
+  bigip_management_route:
+    state: present
+    description: "Azure Maintenance"
+    gateway: 10.10.0.1
+    name: "azure-maintenance"
+    network: "169.254.169.254/32"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+- name: BIGIP F5 Azure LTM Base - Management route (Syslog)
+  bigip_management_route:
+    state: "{{ item.state }}"
+    description: "Syslog server {{ item.name }}"
+    gateway: 10.10.0.1
+    name: "{{ item.name }}"
+    network: "{{ item.network }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ group_f5_global_syslog }}"
+
+- name: BIGIP F5 Azure LTM Base - Management route (NTP)
+  bigip_management_route:
+    state: "{{ item.state }}"
+    description: "NTP server {{ item.name }}"
+    gateway: 10.10.0.1
+    name: "{{ item.name }}"
+    network: "{{ item.server_ip }}/32"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  loop: "{{ group_f5_global_ntp }}"
