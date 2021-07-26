@@ -1,11 +1,11 @@
 ---
 
-- name: F5 BIGIP Azure LTM Base - SNMP
+- name: F5 BIGIP Azure LTM Base - SNMP settings
   bigip_snmp:
     agent_authentication_traps: disabled
     agent_status_traps: enabled
     allowed_addresses:
-      - "192.168.1.1/24"
+      - "192.168.1.0/24"
       - "127.0.0.1"
     contact: "nicholas.nicholas.com"
     device_warning_traps: enabled
@@ -13,10 +13,34 @@
     provider: "{{ f5_provider }}"
   delegate_to: localhost
 
-- name: F5 BIGIP Azure LTM Base - SNMP Community
+- name: F5 BIGIP Azure LTM Base - SNMP User (MYSNMPUSER)
   bigip_snmp_community:
+    name: MYSNMPUSER
+    version: v3
+    snmp_username: MYSNMPUSER
+    snmp_auth_protocol: sha
+    snmp_auth_password: authsecret
+    snmp_privacy_protocol: aes
+    snmp_privacy_password: privsecret
+    oid: ".1"
     access: read-only
-    community: 
+    state: present
     provider: "{{ f5_provider }}"
   delegate_to: localhost
 
+- name: F5 BIGIP Azure LTM Base - SNMP User Remove default 'public' SNMP community
+  bigip_snmp_community:
+    name: public
+    source: default
+    state: absent
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+# bigip_snmp_trap module only supports v1 and v2
+# using bigip_command as a workaround
+- name: F5 BIGIP Azure LTM Base - SNMP Trap (custom 1)
+  bigip_command:
+    commands:
+      - modify sys snmp traps add { i19.19.19.1 { version 3 host 19.19.19.1 port 162 security-level auth-privacy security-name MYSNMPUSER auth-protocol sha auth-password authsecret privacy-protocol aes privacy-password privsecret }}
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost

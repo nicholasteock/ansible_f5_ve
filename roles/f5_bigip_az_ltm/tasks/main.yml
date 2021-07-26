@@ -4,19 +4,20 @@
 - name: Role - F5 BIGIP Azure LTM Base
   block:
     - import_tasks: ntp.yml
-    #- import_tasks: monitors.yml
-    #- import_tasks: nodes.yml
-    #- import_tasks: pools.yml
-    #- import_tasks: data_groups.yml
-    #- import_tasks: irules.yml
-    #- import_tasks: ssl_profiles.yml
-    #- import_tasks: virtual_servers.yml
-    #- import_tasks: syslog.yml
-    #- import_tasks: sshd.yml
-    #- import_tasks: management_routes.yml
-    #- import_tasks: ssl_cipher_groups.yml
-    #- import_tasks: hostname.yml
-    #- import_tasks: general.yml
+    - import_tasks: monitors.yml
+    - import_tasks: nodes.yml
+    - import_tasks: pools.yml
+    - import_tasks: data_groups.yml
+    - import_tasks: irules.yml
+    - import_tasks: ssl_profiles.yml
+    - import_tasks: virtual_servers.yml
+    - import_tasks: syslog.yml
+    - import_tasks: sshd.yml
+    - import_tasks: management_routes.yml
+    - import_tasks: ssl_cipher_groups.yml
+    - import_tasks: hostname.yml
+    - import_tasks: general.yml
+    - import_tasks: snmp.yml
 
 #- name: Role - F5 BIGIP Azure LTM Base - Save config
 #  bigip_config:
