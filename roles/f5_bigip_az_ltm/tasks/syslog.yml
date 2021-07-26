@@ -1,0 +1,45 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - Syslog level configurations
+  bigip_device_syslog:
+    auth_priv_from: notice
+    auth_priv_to: emerg
+    console_log: yes
+    cron_from: warning
+    cron_to: emerg
+    daemon_from: notice
+    daemon_to: emerg
+    iso_date: no
+    kern_from: debug
+    kern_to: emerg
+    local6_from: notice
+    local6_to: emerg
+    mail_from: notice
+    mail_to: emerg
+    messages_from: notice
+    messages_to: warning
+    user_log_from: notice
+    user_log_to: emerg
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+- name: F5 BIGIP Azure LTM Base - Syslog server (Region3)
+  bigip_remote_syslog:
+    state: present
+    name: remotesyslog3
+    remote_host: 12.12.12.12
+    remote_port: "514"
+    local_ip: "{{ device_management_ip }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+- name: F5 BIGIP Azure LTM Base - Syslog server (Region4)
+  bigip_remote_syslog:
+    state: present
+    name: remotesyslog4
+    remote_host: 32.32.32.32
+    remote_port: "514"
+    local_ip: "{{ device_management_ip }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+

@@ -1,0 +1,22 @@
+---
+
+- name: F5 BIGIP Azure LTM Base - SNMP
+  bigip_snmp:
+    agent_authentication_traps: disabled
+    agent_status_traps: enabled
+    allowed_addresses:
+      - "192.168.1.1/24"
+      - "127.0.0.1"
+    contact: "nicholas.nicholas.com"
+    device_warning_traps: enabled
+    location: "{{ device_snmp_location }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+
+- name: F5 BIGIP Azure LTM Base - SNMP Community
+  bigip_snmp_community:
+    access: read-only
+    community: 
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+

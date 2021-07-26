@@ -7,7 +7,14 @@
     #- import_tasks: monitors.yml
     #- import_tasks: nodes.yml
     #- import_tasks: pools.yml
-    - import_tasks: data_groups.yml
+    #- import_tasks: data_groups.yml
     #- import_tasks: irules.yml
     #- import_tasks: ssl_profiles.yml
     - import_tasks: virtual_servers.yml
+    - import_tasks: syslog.yml
+
+#- name: Role - F5 BIGIP Azure LTM Base - Save config
+#  bigip_config:
+#    save: yes
+#    provider: "{{ f5_provider }}"
+#  delegate_to: localhost
